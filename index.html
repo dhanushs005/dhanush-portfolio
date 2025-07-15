@@ -74,7 +74,7 @@
     <section id="hero" class="min-h-screen flex items-center bg-black relative overflow-hidden">
         <div class="absolute inset-0 bg-grid-gray-900/40 [mask-image:linear-gradient(to_bottom,white_20%,transparent_100%)]"></div>
         <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-syne font-extrabold text-white leading-tight hero-title">
+            <h1 class="text-5xl md:text-6xl lg:text-8xl font-syne font-extrabold text-white leading-tight hero-title">
                 <span class="inline-block">DHANUSH S</span>
             </h1>
             <h2 class="mt-4 text-2xl md:text-3xl font-semibold text-indigo-400 hero-subtitle">
@@ -87,7 +87,7 @@
                 <a href="#projects" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 inline-block glow-effect">
                     View My Projects
                 </a>
-                <a href="https://wtkresumes.42web.io" target="_blank" class="ml-4 border-2 border-gray-600 hover:border-indigo-500 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 inline-block">
+                <a href="./assets/DHANUSH.S.pdf" download="Dhanush-S-Resume.pdf" class="ml-4 border-2 border-gray-600 hover:border-indigo-500 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 inline-block">
                     My Resume
                 </a>
             </div>
@@ -256,14 +256,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             gsap.registerPlugin(ScrollTrigger);
 
-            // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // --- WhatsApp Button Logic ---
             const whatsappBtn = document.getElementById('whatsapp-btn');
             whatsappBtn.addEventListener('click', () => {
                 const phoneNumber = '919344221217';
@@ -272,15 +270,19 @@
                 window.open(whatsappUrl, '_blank');
             });
             
-            // --- Header & Hero Animations ---
             gsap.from("header", { y: '-100%', duration: 1, ease: 'power3.out', delay: 0.5 });
+            
             const heroTimeline = gsap.timeline({ delay: 0.8 });
             heroTimeline.from(".hero-title span", { y: 50, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.1 })
             .from(".hero-subtitle", { y: 20, opacity: 0, duration: 0.8, ease: 'power2.out' }, "-=0.6")
             .from(".hero-summary", { y: 20, opacity: 0, duration: 0.8, ease: 'power2.out' }, "-=0.7")
-            .from(".hero-cta > *", { opacity: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.7)', stagger: 0.2 }, "-=0.5");
+            // UPDATED: Changed .from() to a more explicit .fromTo() to fix the disappearing button bug
+            .fromTo(".hero-cta > *", 
+                { opacity: 0, scale: 0.8 }, 
+                { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)', stagger: 0.2 }, 
+                "-=0.5"
+            );
 
-            // --- Generic Scroll-Triggered Animation ---
             gsap.utils.toArray('.gsap-reveal').forEach(elem => {
                 gsap.fromTo(elem, 
                     { y: 50, autoAlpha: 0 }, 
